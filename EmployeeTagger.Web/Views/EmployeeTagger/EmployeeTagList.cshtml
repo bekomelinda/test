@@ -1,0 +1,12 @@
+﻿@model IEnumerable<EmployeeTagger.Model.EmployeeTags>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        string tag = String.Concat(item, item.LastName);
+        foreach (var i in item.TagList)
+        {
+            <li>@i.Name</li>
+        }
+    }
+</ul>

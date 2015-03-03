@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "EmployeeTagsLayout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EmployeeTagsLayout</h2>
+@model IEnumerable<EmployeeTagger.Model.EmployeeTags>
+
+<nav>
+    <ul id="employeeList">
+        @foreach (var item in Model)
+        {
+            string employee = String.Concat(item.FirstName, item.LastName);
+            <li>@Html.ActionLink(employee, "EmployeeTagList", "EmployeeTagger", new { Id = item.Id }, null)</li>
+        }
+    </ul>
+
+</nav>
+<section>
+    <h2>Hi from Employee Tagger section</h2>
+    @RenderBody()
+
+</section>

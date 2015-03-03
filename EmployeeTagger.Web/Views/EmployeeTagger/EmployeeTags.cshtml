@@ -1,0 +1,19 @@
+﻿@model IEnumerable<EmployeeTagger.Model.EmployeeTags>
+
+@{
+    ViewBag.Title = "EmployeeTags";
+    Layout = "~/Views/Shared/EmployeeTagsLayout.cshtml";
+}
+
+<ul>
+    @{string param1 = ViewBag.EmployeeId;}
+    <li>dsdfs @param1</li>
+
+    @foreach (var item in Model)
+    {
+        foreach (var i in item.TagList)
+        {
+            <li>@i.Name</li>
+        }
+    }
+</ul>
