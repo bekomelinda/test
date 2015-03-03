@@ -23,6 +23,7 @@ namespace EmployeeTagger.Web.Controllers
         }   
         public ActionResult EmployeeTags(int? id)        
         {
+            ViewBag.EmployeeId = id;
             var e = new EmployeeTagsRepository();
             var employeeList = e.GetEmployeeTags();
             return View(employeeList);
