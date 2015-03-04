@@ -1,19 +1,26 @@
-﻿@model IEnumerable<EmployeeTagger.Model.EmployeeTags>
+﻿@model IEnumerable<EmployeeTagger.Model.EmployeeTagsDetails> 
 
 @{
     ViewBag.Title = "EmployeeTags";
     Layout = "~/Views/Shared/EmployeeTagsLayout.cshtml";
 }
 
-<ul>
-    @{string param1 = ViewBag.EmployeeId;}
-    <li>dsdfs @param1</li>
+@{EmployeeTagger.Model.EmployeeTagsDetails employee = Model.FirstOrDefault(x => x.Id == ViewBag.EmployeeId); }
 
-    @foreach (var item in Model)
+<dl>
+    <dt>Employee name: </dt>
+    <dd>@employee.FirstName&nbsp;@employee.LastName</dd>
+</dl>
+<dl>
+    <dt>Position: </dt>
+    <dd>@employee.Position</dd>
+</dl>
+
+<ul id="employeeTags">
+    @foreach (var i in Model.FirstOrDefault(x => x.Id == ViewBag.EmployeeId).TagList)
     {
-        foreach (var i in item.TagList)
-        {
-            <li>@i.Name</li>
-        }
+        <li><span>@i.Name </span>
+            @Html.ActionLink("aa", "RemoveTag", "EmployeeTagger", new { Id = i.Id, EmployeeId = ViewBag.EmployeeId }, new { @class = "removeTag" })
+        </li>
     }
 </ul>

@@ -14,11 +14,15 @@ namespace EmployeeTagger.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+                name: "ControllerAndId",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "EmployeeTagger", action = "EmployeeTags", id = UrlParameter.Optional }
-                //defaults: new { controller = "EmployeeTagger", action = "EmployeeTagList", id = UrlParameter.Optional }
+                defaults: null,
+                constraints: new { id = @"^\d+$" } //all digits
             );
+            routes.MapRoute(
+               name: "Default",
+               url: "{controller}/{action}/{id}" 
+           );
         }
     }
 }

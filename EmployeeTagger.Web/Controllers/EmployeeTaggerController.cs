@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.Entity;
 
 using EmployeeTagger.Data;
+using EmployeeTagger.Model;
 
 
 namespace EmployeeTagger.Web.Controllers
@@ -20,20 +21,23 @@ namespace EmployeeTagger.Web.Controllers
         public ActionResult Index()
         {
             return View();
-        }   
-        public ActionResult EmployeeTags(int? id)        
+        }
+        public ActionResult EmployeeTags(int id)
         {
             ViewBag.EmployeeId = id;
-            var e = new EmployeeTagsRepository();
-            var employeeList = e.GetEmployeeTags();
+            EmployeeTagsDetailsRepository e = EmployeeTagsDetailsRepository.Instance;
+            var employeeList = e.GetAll();
             return View(employeeList);
         }
 
-        public ActionResult EmployeeTagList()
+        public ActionResult RemoveTag(int id, int employeeId)
         {
-            var e = new EmployeeTagsRepository();
-            var employeeList = e.GetEmployeeTags();
-            return View(employeeList[1]);
+
+            EmployeeTagsDetailsRepository e = EmployeeTagsDetailsRepository.Instance;
+            var employeeList = e.GetAll();
+            EmployeeTagsDetails employee = employeeList.FirstOrDefault(x => x.Id == employeeId);
+            employee.TagList.Remove(employee.TagList.FirstOrDefault(x => x.Id == id));
+            return View(employeeList);
         }
     }
 }
