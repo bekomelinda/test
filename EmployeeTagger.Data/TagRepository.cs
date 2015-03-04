@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using EmployeeTagger.Model;
 using System.Data;
 using System.Data.Entity;
+using EmployeeTagger.Data.Contracts;
 
 namespace EmployeeTagger.Data
 {
-    public class TagRepository
+    public class TagRepository:IRepository<Tag>
     {
        
         public List<Tag> GetTags()
@@ -28,6 +29,36 @@ namespace EmployeeTagger.Data
             tagList.Add(new Tag { Id = 11, Name = "mvc" });
             tagList.Add(new Tag { Id = 12, Name = "productiv" });
             return tagList;
+        }
+
+        public IQueryable<Tag> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Tag GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(Tag entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Tag entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Tag entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,10 +10,10 @@
 <dl>
     <dt>Employee name: </dt>
     <dd>@employee.FirstName&nbsp;@employee.LastName</dd>
-</dl>
-<dl>
     <dt>Position: </dt>
     <dd>@employee.Position</dd>
+    <dt>Tags: </dt>
+    <dd>@Html.TextArea("tagList")</dd>
 </dl>
 
 <ul id="employeeTags">

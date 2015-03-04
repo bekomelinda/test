@@ -15,6 +15,7 @@ namespace EmployeeTagger.Web.Controllers
 {
     public class EmployeeTaggerController : Controller
     {
+        private EmployeeTagsDetailsRepository e = EmployeeTagsDetailsRepository.Instance;
         //
         // GET: /EmployeeTagger/
 
@@ -25,19 +26,15 @@ namespace EmployeeTagger.Web.Controllers
         public ActionResult EmployeeTags(int id)
         {
             ViewBag.EmployeeId = id;
-            EmployeeTagsDetailsRepository e = EmployeeTagsDetailsRepository.Instance;
             var employeeList = e.GetAll();
             return View(employeeList);
         }
 
         public ActionResult RemoveTag(int id, int employeeId)
         {
-
-            EmployeeTagsDetailsRepository e = EmployeeTagsDetailsRepository.Instance;
-            var employeeList = e.GetAll();
-            EmployeeTagsDetails employee = employeeList.FirstOrDefault(x => x.Id == employeeId);
-            employee.TagList.Remove(employee.TagList.FirstOrDefault(x => x.Id == id));
-            return View(employeeList);
+            e.DeleteEmployeeTagById(employeeId, id);
+            //return RedirectToAction("EmployeeTags", "EmployeeTagger", employeeId);
+            return View(e.EmployeeTagsDetailsListInstance);
         }
     }
 }
