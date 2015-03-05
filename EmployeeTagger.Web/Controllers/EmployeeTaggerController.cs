@@ -16,6 +16,7 @@ namespace EmployeeTagger.Web.Controllers
     public class EmployeeTaggerController : Controller
     {
         private EmployeeTagsDetailsRepository e = EmployeeTagsDetailsRepository.Instance;
+        private TagRepository tag = new TagRepository();
         //
         // GET: /EmployeeTagger/
 
@@ -33,8 +34,17 @@ namespace EmployeeTagger.Web.Controllers
         public ActionResult RemoveTag(int id, int employeeId)
         {
             e.DeleteEmployeeTagById(employeeId, id);
-            //return RedirectToAction("EmployeeTags", "EmployeeTagger", employeeId);
-            return View(e.EmployeeTagsDetailsListInstance);
+            ViewBag.EmployeeId = employeeId;
+            return RedirectToAction("EmployeeTags", "EmployeeTagger", new { id = employeeId });
+        }
+
+        public JsonResult TagsAutocomplete(string term)
+        {
+            var allTags = tag.GetAll();
+            var result = (from r in allTags
+                          where r.Name.ToLower().Contains(term.ToLower())
+                          select new { r.Name }).Distinct();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

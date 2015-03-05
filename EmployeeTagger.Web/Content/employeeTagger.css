@@ -1,4 +1,7 @@
-﻿ ul#employeeList li {
+﻿ul#employeeList {    
+        margin:20px 0;
+} 
+ul#employeeList li {
         list-style-type:none;
     }
  nav {
@@ -10,9 +13,10 @@
     padding:5px; 
 }
 section {
-    width:500px;
+    width:800px;
     float:left;
     padding:10px; 
+    margin-left:45px;
 }
 footer {
     background-color:black;
@@ -25,7 +29,7 @@ footer {
 ul#employeeTags{
     margin:30px 0px 10px 0px;
     min-height:300px;  
-
+    padding-left:0;
 }
 ul#employeeTags li{
     list-style-type:none;
@@ -33,7 +37,7 @@ ul#employeeTags li{
     border:1px solid #808080;
     background-color:#eee;
     padding:2px 5px;
-    margin:5px 5px;
+    margin:5px 10px 5px 0;
 }
 dl dt{float:left;}
 
@@ -42,4 +46,23 @@ a.removeTag {
     display: inline-block;
     width: 15px;
     text-indent: -9999px; /* hides the link text */
+}
+.employeeImage {
+    float:left;
+}
+.employeeDetails {
+    display:inline-block;
+    padding:25px 10px;
+}
+.tagList {
+    display:inline-block;
+}
+#Tag {
+    margin:5px 0;
+    min-width:400px;
+}
+
+#divTag input {
+    float:left;
+    width:120px;
 }

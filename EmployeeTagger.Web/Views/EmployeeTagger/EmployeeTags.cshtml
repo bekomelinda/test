@@ -7,20 +7,106 @@
 
 @{EmployeeTagger.Model.EmployeeTagsDetails employee = Model.FirstOrDefault(x => x.Id == ViewBag.EmployeeId); }
 
-<dl>
-    <dt>Employee name: </dt>
-    <dd>@employee.FirstName&nbsp;@employee.LastName</dd>
-    <dt>Position: </dt>
-    <dd>@employee.Position</dd>
-    <dt>Tags: </dt>
-    <dd>@Html.TextArea("tagList")</dd>
-</dl>
 
-<ul id="employeeTags">
-    @foreach (var i in Model.FirstOrDefault(x => x.Id == ViewBag.EmployeeId).TagList)
-    {
-        <li><span>@i.Name </span>
-            @Html.ActionLink("aa", "RemoveTag", "EmployeeTagger", new { Id = i.Id, EmployeeId = ViewBag.EmployeeId }, new { @class = "removeTag" })
-        </li>
-    }
-</ul>
+<img src="~/Images/employee.png" class="employeeImage" />
+<div class="employeeDetails">
+    <h2>@employee.FirstName&nbsp;@employee.LastName</h2>
+    <h3>@employee.Position</h3>
+</div>
+
+@using (Html.BeginForm())
+{
+    
+    <div id="divTag">
+        <input type="text" id="tagInput" name="tagInput" onblur="AddTag(this);" /><input type="hidden" id="tagInputHidden" value="false" />
+     </div>
+    <br />
+    <br />
+    <input id="btnSave" type="submit" value="Save tags" />
+}
+<script>
+    function AddTag(item) {
+        var hiddenName = $(item).attr('id') + 'Hidden';
+        var wasCalledHidden = $('#divTag input#' + hiddenName).val();
+
+        if (wasCalledHidden == 'false') {
+
+            $('#divTag input#' + hiddenName).val('true');
+
+            var m = $('#divTag input[type=text]:last-child').attr('name');
+            //alert(m);
+            var index = 0;
+            if (m != null && m.length > 0) {
+                index = m.split('TagList[')[1].replace('].Name', '');
+                index++;
+            }
+
+            var html =
+                '<input id=\"TagList_' + index + '__Name\" class=\"text-box single-line\"' +
+                ' type=\"text\" value=\"\" name=\"TagList[' + index + '].Name\" onblur=\"AddTag(this)\">';
+            $('#divTag').append(html);
+            var hiddenHtml =
+                '<input id=\"TagList_' + index + '__NameHidden\"' +
+                ' type=\"hidden\" value=\"false\">';
+            $('#divTag').append(hiddenHtml);
+        }
+    };
+
+    //var myInput = $('#divTag input:last-child');
+    //if (myInput.addEventListener) {
+    //    myInput.addEventListener('keydown', this.keyHandler, false);
+    //} else if (myInput.attachEvent) {
+    //    myInput.attachEvent('onkeydown', this.keyHandler); /* damn IE hack */
+    //}
+
+    //function keyHandler(e) {
+    //    var TABKEY = 9;
+    //    if (e.keyCode == TABKEY) {
+    //        alert('tab key');
+    //        this.value += "    ";
+    //        if (e.preventDefault) {
+    //            e.preventDefault();
+    //        }
+    //        return false;
+    //    }
+    //}
+
+    //$('#divTag input:last-child').on('keyup', function (e) {
+    //    alert(e.keyCode);
+    //    if (e.keyCode == 9) {
+    //        alert('tab');
+    //    }
+    //});
+
+</script>
+
+
+
+<div class="tagList">
+   @*@Html.TextBox("Tag");
+
+    <span id="rData"></span>
+
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.3.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#Tag").autocomplete({
+                source: 'EmployeeTagger/TagsAutocomplete',
+                minLength: 1
+            });
+        });
+    </script>*@
+
+
+    <ul id="employeeTags">
+        @foreach (var i in Model.FirstOrDefault(x => x.Id == ViewBag.EmployeeId).TagList)
+        {
+            <li>
+                <span>@i.Name </span>
+                @Html.ActionLink("aa", "RemoveTag", "EmployeeTagger", new { Id = i.Id, EmployeeId = ViewBag.EmployeeId }, new { @class = "removeTag" })
+            </li>
+        }
+    </ul>
+</div>

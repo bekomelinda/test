@@ -33,7 +33,7 @@ namespace EmployeeTagger.Data
 
         public IQueryable<Tag> GetAll()
         {
-            throw new NotImplementedException();
+            return GetTags().AsQueryable();
         }
 
         public Tag GetById(int id)

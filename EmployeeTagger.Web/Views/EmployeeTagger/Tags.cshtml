@@ -1,0 +1,23 @@
+﻿<h1>hello from partial view</h1>
+@model IEnumerable<EmployeeTagger.Model.EmployeeTagsDetails> 
+
+@{EmployeeTagger.Model.EmployeeTagsDetails employee = Model.FirstOrDefault(x => x.Id == ViewBag.EmployeeId); }
+
+<dl>
+    <dt>Employee name: </dt>
+    <dd>@employee.FirstName&nbsp;@employee.LastName</dd>
+</dl>
+<dl>
+    <dt>Position: </dt>
+    <dd>@employee.Position</dd>
+</dl>
+
+<ul id="employeeTags">
+    @foreach (var i in Model.FirstOrDefault(x => x.Id == ViewBag.EmployeeId).TagList)
+    {
+        <li>
+            <span>@i.Name </span>
+            @Html.ActionLink("aa", "RemoveTag", "EmployeeTagger", new { Id = i.Id, EmployeeId = ViewBag.EmployeeId }, new { @class = "removeTag" });
+        </li>
+    }
+</ul>

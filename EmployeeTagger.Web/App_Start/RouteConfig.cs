@@ -19,10 +19,18 @@ namespace EmployeeTagger.Web
                 defaults: null,
                 constraints: new { id = @"^\d+$" } //all digits
             );
+            //routes.MapRoute(
+            //   name: "Default",
+            //   url: "{controller}/{action}/{id}" 
+            //);
             routes.MapRoute(
-               name: "Default",
-               url: "{controller}/{action}/{id}" 
-           );
+                name: "Term", 
+                url : "{controller}/{action}/{term}",
+                defaults: string.Empty);
+
+            routes.MapRoute("Default", "{controller}/{action}/{id}",
+            new { id = UrlParameter.Optional });
+            
         }
     }
 }
